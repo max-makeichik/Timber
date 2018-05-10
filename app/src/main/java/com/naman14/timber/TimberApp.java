@@ -47,7 +47,7 @@ public class TimberApp extends MultiDexApplication {
 
         //disable crashlytics for debug builds
         Crashlytics crashlyticsKit = new Crashlytics.Builder()
-                .core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build())
+                .core(new CrashlyticsCore.Builder().disabled(true).build())
                 .build();
         Fabric.with(this, crashlyticsKit);
 
