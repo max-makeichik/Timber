@@ -33,24 +33,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.afollestad.appthemeengine.customizers.ATEActivityThemeCustomizer;
 import com.anjlab.android.iab.v3.BillingProcessor;
-import com.google.android.gms.cast.framework.CastButtonFactory;
-import com.google.android.gms.cast.framework.CastContext;
-import com.google.android.gms.cast.framework.CastSession;
-import com.google.android.gms.cast.framework.Session;
-import com.google.android.gms.cast.framework.SessionManager;
-import com.google.android.gms.cast.framework.SessionManagerListener;
 import com.google.android.gms.cast.framework.media.widget.ExpandedControllerActivity;
-import com.google.android.gms.cast.framework.media.widget.MiniControllerFragment;
 import com.naman14.timber.MusicPlayer;
 import com.naman14.timber.R;
 import com.naman14.timber.cast.ExpandedControlsActivity;
-import com.naman14.timber.cast.SimpleSessionManagerListener;
-import com.naman14.timber.cast.WebServer;
 import com.naman14.timber.fragments.AlbumDetailFragment;
 import com.naman14.timber.fragments.ArtistDetailFragment;
 import com.naman14.timber.fragments.FoldersFragment;
@@ -68,7 +58,6 @@ import com.naman14.timber.utils.TimberUtils;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -225,7 +214,7 @@ public class MainActivity extends BaseActivity implements ATEActivityThemeCustom
 
         addBackstackListener();
 
-        if(Intent.ACTION_VIEW.equals(action)) {
+        if (Intent.ACTION_VIEW.equals(action)) {
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
@@ -238,7 +227,7 @@ public class MainActivity extends BaseActivity implements ATEActivityThemeCustom
             }, 350);
         }
 
-        if (!panelLayout.isPanelHidden() && MusicPlayer.getTrackName() == null ) {
+        if (!panelLayout.isPanelHidden() && MusicPlayer.getTrackName() == null) {
             panelLayout.hidePanel();
         }
 

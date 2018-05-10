@@ -16,7 +16,7 @@ import java.util.List;
 
 public class FolderLoader {
 
-    private static final String[] SUPPORTED_EXT = new String[] {
+    private static final String[] SUPPORTED_EXT = new String[]{
             "mp3",
             "mp4",
             "m4a",
@@ -59,7 +59,7 @@ public class FolderLoader {
             @Override
             public boolean accept(File pathname) {
                 String name = pathname.getName();
-                return !".".equals(name) && !"..".equals(name) && pathname.canRead() && (pathname.isDirectory()  || (pathname.isFile() && checkFileExt(name)));
+                return !".".equals(name) && !"..".equals(name) && pathname.canRead() && (pathname.isDirectory() || (pathname.isFile() && checkFileExt(name)));
             }
 
         }).length != 0;

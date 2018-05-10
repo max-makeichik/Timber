@@ -17,19 +17,21 @@ package com.naman14.timber.utils;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.media.MediaMetadataRetriever;
+import android.media.RingtoneManager;
 import android.media.audiofx.AudioEffect;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.provider.BaseColumns;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.util.TypedValue;
 import android.widget.Toast;
@@ -40,6 +42,7 @@ import com.naman14.timber.MusicPlayer;
 import com.naman14.timber.R;
 import com.naman14.timber.adapters.BaseQueueAdapter;
 import com.naman14.timber.adapters.BaseSongAdapter;
+import com.naman14.timber.models.Song;
 import com.naman14.timber.provider.RecentStore;
 import com.naman14.timber.provider.SongPlayCount;
 
@@ -48,6 +51,9 @@ import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.util.Collections;
 import java.util.List;
+
+import io.reactivex.Completable;
+import io.reactivex.schedulers.Schedulers;
 
 public class TimberUtils {
 
@@ -82,6 +88,7 @@ public class TimberUtils {
     public static Uri getAlbumArtUri(long albumId) {
         return ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), albumId);
     }
+
     public static String getAlbumArtForFile(String filePath) {
         MediaMetadataRetriever mmr = new MediaMetadataRetriever();
         mmr.setDataSource(filePath);
@@ -159,6 +166,37 @@ public class TimberUtils {
         if (darkness >= 0.5) {
             return Color.WHITE;
         } else return Color.BLACK;
+    }
+
+    public static Completable setAsRingtone(Context context, Song song) {
+        return Completable.fromCallable(() -> {
+            File k = new File(Environment.getExternalStorageDirectory() + "/ring_tones" + "/" +
+                    song.title, "ringtone.mp3"); // path is a file to /sdcard/media/ringtone
+
+            ContentValues values = new ContentValues();
+            values.put(MediaStore.MediaColumns.DATA, k.getAbsolutePath());
+            values.put(MediaStore.MediaColumns.TITLE, "My Song title");
+            values.put(MediaStore.MediaColumns.SIZE, 215454);
+            values.put(MediaStore.MediaColumns.MIME_TYPE, "audio/mp3");
+            values.put(MediaStore.Audio.Media.ARTIST, "Madonna");
+            values.put(MediaStore.Audio.Media.DURATION, 230);
+            values.put(MediaStore.Audio.Media.IS_RINGTONE, true);
+            values.put(MediaStore.Audio.Media.IS_NOTIFICATION, false);
+            values.put(MediaStore.Audio.Media.IS_ALARM, false);
+            values.put(MediaStore.Audio.Media.IS_MUSIC, false);
+
+            //Insert it into the database
+            Uri uri = MediaStore.Audio.Media.getContentUriForPath(k.getAbsolutePath());
+            Uri newUri = context.getContentResolver().insert(uri, values);
+
+            RingtoneManager.setActualDefaultRingtoneUri(
+                    context,
+                    RingtoneManager.TYPE_RINGTONE,
+                    newUri
+            );
+            return true;
+        })
+                .subscribeOn(Schedulers.io());
     }
 
     public enum IdType {
@@ -393,7 +431,7 @@ public class TimberUtils {
                     if (!addr.isLoopbackAddress()) {
                         String sAddr = addr.getHostAddress();
                         //boolean isIPv4 = InetAddressUtils.isIPv4Address(sAddr);
-                        boolean isIPv4 = sAddr.indexOf(':')<0;
+                        boolean isIPv4 = sAddr.indexOf(':') < 0;
 
                         if (useIPv4) {
                             if (isIPv4)
@@ -401,14 +439,19 @@ public class TimberUtils {
                         } else {
                             if (!isIPv4) {
                                 int delim = sAddr.indexOf('%'); // drop ip6 zone suffix
-                                return delim<0 ? sAddr.toUpperCase() : sAddr.substring(0, delim).toUpperCase();
+                                return delim < 0 ? sAddr.toUpperCase() : sAddr.substring(0, delim).toUpperCase();
                             }
                         }
                     }
                 }
             }
-        } catch (Exception ex) { }
+        } catch (Exception ex) {
+        }
         return "";
+    }
+
+    public static void showToast(Context context, String message) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
 
 }

@@ -34,11 +34,11 @@ public class LyricsLoader {
     private LyricsRestService service;
 
     public static LyricsLoader getInstance(Context con) {
-        if(instance==null)instance = new LyricsLoader(con);
+        if (instance == null) instance = new LyricsLoader(con);
         return instance;
     }
 
-    private LyricsLoader(Context con){
+    private LyricsLoader(Context con) {
         final OkHttpClient okHttpClient = new OkHttpClient();
 
         okHttpClient.setCache(new Cache(con.getApplicationContext().getCacheDir(),
@@ -87,13 +87,13 @@ public class LyricsLoader {
                 })
                 .setClient(new OkClient(okHttpClient));
 
-         service = builder
+        service = builder
                 .build()
                 .create(LyricsRestService.class);
     }
 
-    public void getLyrics(String artist, String title, Callback<String> callback){
-        service.getLyrics(artist,title,callback);
+    public void getLyrics(String artist, String title, Callback<String> callback) {
+        service.getLyrics(artist, title, callback);
     }
 
     private interface LyricsRestService {

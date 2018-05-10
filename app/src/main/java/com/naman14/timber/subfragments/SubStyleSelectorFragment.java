@@ -124,12 +124,12 @@ public class SubStyleSelectorFragment extends Fragment {
         if (getArguments().getInt(ARG_PAGE_NUMBER) >= 4 && !isUnlocked()) {
             imgLock.setVisibility(View.VISIBLE);
             foreground.setVisibility(View.VISIBLE);
-        }
-        else {
+        } else {
             imgLock.setVisibility(View.GONE);
             foreground.setVisibility(View.GONE);
         }
     }
+
     private void showPurchaseDialog() {
         MaterialDialog dialog = new MaterialDialog.Builder(getActivity())
                 .title("Purchase")

@@ -24,7 +24,7 @@ public class LastfmUserSession {
         return session;
     }
 
-    public boolean isLogedin(){
+    public boolean isLogedin() {
         return session.mToken != null && session.mUsername != null;
     }
 

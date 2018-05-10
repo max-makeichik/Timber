@@ -41,16 +41,16 @@ import java.io.ByteArrayOutputStream;
 
 public class ImageUtils {
     private static final DisplayImageOptions lastfmDisplayImageOptions =
-                                                new DisplayImageOptions.Builder()
-                                                        .cacheInMemory(true)
-                                                        .cacheOnDisk(true)
-                                                        .showImageOnFail(R.drawable.ic_empty_music2)
-                                                        .build();
+            new DisplayImageOptions.Builder()
+                    .cacheInMemory(true)
+                    .cacheOnDisk(true)
+                    .showImageOnFail(R.drawable.ic_empty_music2)
+                    .build();
 
     private static final DisplayImageOptions diskDisplayImageOptions =
-                                                new DisplayImageOptions.Builder()
-                                                        .cacheInMemory(true)
-                                                        .build();
+            new DisplayImageOptions.Builder()
+                    .cacheInMemory(true)
+                    .build();
 
     public static void loadAlbumArtIntoView(final long albumId, final ImageView view) {
         loadAlbumArtIntoView(albumId, view, new SimpleImageLoadingListener());
@@ -69,51 +69,52 @@ public class ImageUtils {
                                                                final ImageLoadingListener listener) {
         ImageLoader.getInstance()
                 .displayImage(TimberUtils.getAlbumArtUri(albumId).toString(),
-                              view,
-                              diskDisplayImageOptions,
-                              new SimpleImageLoadingListener() {
-                                  @Override
-                                  public void onLoadingFailed(String imageUri, View view,
-                                                              FailReason failReason) {
-                                      loadAlbumArtFromLastfm(albumId, (ImageView) view, listener);
-                                      listener.onLoadingFailed(imageUri, view, failReason);
-                                  }
+                        view,
+                        diskDisplayImageOptions,
+                        new SimpleImageLoadingListener() {
+                            @Override
+                            public void onLoadingFailed(String imageUri, View view,
+                                                        FailReason failReason) {
+                                loadAlbumArtFromLastfm(albumId, (ImageView) view, listener);
+                                listener.onLoadingFailed(imageUri, view, failReason);
+                            }
 
-                                  @Override
-                                  public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                                      listener.onLoadingComplete(imageUri, view, loadedImage);
-                                  }
-                              });
+                            @Override
+                            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                                listener.onLoadingComplete(imageUri, view, loadedImage);
+                            }
+                        });
     }
 
     private static void loadAlbumArtFromLastfm(long albumId, final ImageView albumArt, final ImageLoadingListener listener) {
         Album album = AlbumLoader.getAlbum(albumArt.getContext(), albumId);
         LastFmClient.getInstance(albumArt.getContext())
                 .getAlbumInfo(new AlbumQuery(album.title, album.artistName),
-                              new AlbumInfoListener() {
-                                  @Override
-                                  public void albumInfoSuccess(final LastfmAlbum album) {
-                                      if (album != null) {
-                                          ImageLoader.getInstance()
-                                                  .displayImage(album.mArtwork.get(4).mUrl,
-                                                                albumArt,
-                                                                lastfmDisplayImageOptions, new SimpleImageLoadingListener(){
-                                                              @Override
-                                                              public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                                                                  listener.onLoadingComplete(imageUri, view, loadedImage);
-                                                              }
+                        new AlbumInfoListener() {
+                            @Override
+                            public void albumInfoSuccess(final LastfmAlbum album) {
+                                if (album != null) {
+                                    ImageLoader.getInstance()
+                                            .displayImage(album.mArtwork.get(4).mUrl,
+                                                    albumArt,
+                                                    lastfmDisplayImageOptions, new SimpleImageLoadingListener() {
+                                                        @Override
+                                                        public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                                                            listener.onLoadingComplete(imageUri, view, loadedImage);
+                                                        }
 
-                                                              @Override
-                                                              public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                                                                  listener.onLoadingFailed(imageUri, view, failReason);
-                                                              }
-                                                          });
-                                      }
-                                  }
+                                                        @Override
+                                                        public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                                                            listener.onLoadingFailed(imageUri, view, failReason);
+                                                        }
+                                                    });
+                                }
+                            }
 
-                                  @Override
-                                  public void albumInfoFailed() { }
-                              });
+                            @Override
+                            public void albumInfoFailed() {
+                            }
+                        });
     }
 
     public static Drawable createBlurredImageFromBitmap(Bitmap bitmap, Context context, int inSampleSize) {

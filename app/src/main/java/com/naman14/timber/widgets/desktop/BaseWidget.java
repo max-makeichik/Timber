@@ -26,7 +26,7 @@ public abstract class BaseWidget extends AppWidgetProvider {
         onUpdate(context, appWidgetManager, appWidgetIds, null);
     }
 
-    private void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds,Bundle extras){
+    private void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds, Bundle extras) {
         ComponentName serviceName = new ComponentName(context, MusicService.class);
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), getLayoutRes());
         try {
@@ -52,5 +52,6 @@ public abstract class BaseWidget extends AppWidgetProvider {
 
     abstract void onViewsUpdate(Context context, RemoteViews remoteViews, ComponentName serviceName, Bundle extras);
 
-    abstract @LayoutRes int getLayoutRes();
+    abstract @LayoutRes
+    int getLayoutRes();
 }

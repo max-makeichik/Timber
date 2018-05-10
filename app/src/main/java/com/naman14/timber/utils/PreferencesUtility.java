@@ -203,7 +203,7 @@ public final class PreferencesUtility {
     }
 
     public int getPlaylistView() {
-        return mPreferences.getInt(TOGGLE_PLAYLIST_VIEW ,0);
+        return mPreferences.getInt(TOGGLE_PLAYLIST_VIEW, 0);
     }
 
     public void setPlaylistView(final int i) {
@@ -222,7 +222,9 @@ public final class PreferencesUtility {
         editor.apply();
     }
 
-    /** @parm lastAddedMillis timestamp in millis used as a cutoff for last added playlist */
+    /**
+     * @parm lastAddedMillis timestamp in millis used as a cutoff for last added playlist
+     */
     public void setLastAddedCutoff(long lastAddedMillis) {
         mPreferences.edit().putLong(LAST_ADDED_CUTOFF, lastAddedMillis).apply();
     }
@@ -260,7 +262,7 @@ public final class PreferencesUtility {
     }
 
     public void updateService(Bundle extras) {
-        if(!MusicPlayer.isPlaybackServiceConnected())return;
+        if (!MusicPlayer.isPlaybackServiceConnected()) return;
         final Intent intent = new Intent(context, MusicService.class);
         intent.setAction(MusicService.UPDATE_PREFERENCES);
         intent.putExtras(extras);
@@ -270,7 +272,8 @@ public final class PreferencesUtility {
     public boolean loadArtistAndAlbumImages() {
         if (mPreferences.getBoolean(ARTIST_ALBUM_IMAGE, true)) {
             if (!mPreferences.getBoolean(ARTIST_ALBUM_IMAGE_MOBILE, true)) {
-                if (connManager == null) connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                if (connManager == null)
+                    connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
                 NetworkInfo ni = connManager.getActiveNetworkInfo();
                 return ni != null && ni.getType() == ConnectivityManager.TYPE_WIFI;
             }

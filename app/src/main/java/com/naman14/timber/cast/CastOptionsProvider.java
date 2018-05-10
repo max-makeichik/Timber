@@ -21,7 +21,7 @@ public class CastOptionsProvider implements OptionsProvider {
         List<String> buttonActions = new ArrayList<>();
         buttonActions.add(MediaIntentReceiver.ACTION_TOGGLE_PLAYBACK);
         buttonActions.add(MediaIntentReceiver.ACTION_STOP_CASTING);
-        int[] compatButtonActionsIndicies = new int[]{ 0, 1 };
+        int[] compatButtonActionsIndicies = new int[]{0, 1};
 
         NotificationOptions notificationOptions = new NotificationOptions.Builder()
                 .setActions(buttonActions, compatButtonActionsIndicies)
@@ -34,12 +34,13 @@ public class CastOptionsProvider implements OptionsProvider {
                 .build();
 
         CastOptions castOptions = new CastOptions.Builder()
-            .setReceiverApplicationId(appContext.getString(R.string.cast_app_id))
+                .setReceiverApplicationId(appContext.getString(R.string.cast_app_id))
                 .setCastMediaOptions(mediaOptions)
                 .build();
 
         return castOptions;
     }
+
     @Override
     public List<SessionProvider> getAdditionalSessionProviders(Context context) {
         return null;

@@ -24,6 +24,6 @@ public class UserLoginQuery {
     }
 
     public String getSignature() {
-        return "api_key" + LastFmClient.API_KEY  + "method" + Method + "password" + mPassword + "username" + mUsername + LastFmClient.API_SECRET;
+        return "api_key" + LastFmClient.API_KEY + "method" + Method + "password" + mPassword + "username" + mUsername + LastFmClient.API_SECRET;
     }
 }

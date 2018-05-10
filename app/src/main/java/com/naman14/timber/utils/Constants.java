@@ -70,5 +70,4 @@ public class Constants {
     public static final int CAST_SERVER_PORT = 8080;
 
 
-
 }

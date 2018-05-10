@@ -100,7 +100,7 @@ public class PlayingQueueAdapter extends RecyclerView.Adapter<PlayingQueueAdapte
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.popup_song_remove_queue:
-                                Log.v(TAG,"Removing " + position);
+                                Log.v(TAG, "Removing " + position);
                                 MusicPlayer.removeTrackAtPosition(getSongAt(position).id, position);
                                 removeSongAt(position);
                                 notifyItemRemoved(position);

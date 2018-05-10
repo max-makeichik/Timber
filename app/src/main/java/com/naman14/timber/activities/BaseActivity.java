@@ -22,7 +22,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.media.AudioManager;
-import android.media.session.MediaSessionManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -42,7 +41,6 @@ import com.google.android.gms.cast.framework.CastSession;
 import com.google.android.gms.cast.framework.Session;
 import com.google.android.gms.cast.framework.SessionManager;
 import com.google.android.gms.cast.framework.SessionManagerListener;
-import com.google.android.gms.cast.framework.media.widget.ExpandedControllerActivity;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.naman14.timber.ITimberService;
@@ -91,11 +89,13 @@ public class BaseActivity extends ATEActivity implements ServiceConnection, Musi
             mCastSession = mSessionManager.getCurrentCastSession();
             showCastMiniController();
         }
+
         @Override
         public void onSessionResumed(Session session, boolean wasSuspended) {
             invalidateOptionsMenu();
             mCastSession = mSessionManager.getCurrentCastSession();
         }
+
         @Override
         public void onSessionEnded(Session session, int error) {
             mCastSession = null;
@@ -169,7 +169,7 @@ public class BaseActivity extends ATEActivity implements ServiceConnection, Musi
             mSessionManager.addSessionManagerListener(mSessionManagerListener);
         }
         //For Android 8.0+: service may get destroyed if in background too long
-        if(mService == null){
+        if (mService == null) {
             mToken = MusicPlayer.bindToService(this, this);
         }
         onMetaChanged();

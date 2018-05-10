@@ -113,8 +113,8 @@ public class BaseNowplayingFragment extends Fragment implements MusicStateListen
             overflowcounter--;
             int delay = 250; //not sure why this delay was so high before
             if (overflowcounter < 0 && !fragmentPaused) {
-                    overflowcounter++;
-                    mProgress.postDelayed(mUpdateProgress, delay); //delay
+                overflowcounter++;
+                mProgress.postDelayed(mUpdateProgress, delay); //delay
             }
         }
     };
@@ -205,7 +205,7 @@ public class BaseNowplayingFragment extends Fragment implements MusicStateListen
         @Override
         public void onClick(View v) {
             duetoplaypause = true;
-            if(MusicPlayer.getCurrentTrack() == null) {
+            if (MusicPlayer.getCurrentTrack() == null) {
                 Toast.makeText(getContext(), getString(R.string.now_playing_no_track_selected), Toast.LENGTH_SHORT).show();
             } else {
                 playPauseDrawable.transformToPlay(true);
@@ -220,7 +220,6 @@ public class BaseNowplayingFragment extends Fragment implements MusicStateListen
                     }
                 }, 250);
             }
-
 
 
         }
@@ -459,16 +458,16 @@ public class BaseNowplayingFragment extends Fragment implements MusicStateListen
             MaterialDrawableBuilder builder = MaterialDrawableBuilder.with(getActivity())
                     .setSizeDp(30);
 
-                if (MusicPlayer.getRepeatMode() == MusicService.REPEAT_NONE) {
-                    builder.setIcon(MaterialDrawableBuilder.IconValue.REPEAT);
-                    builder.setColor(Config.textColorPrimary(getActivity(), ateKey));
-                } else if (MusicPlayer.getRepeatMode() == MusicService.REPEAT_CURRENT) {
-                    builder.setIcon(MaterialDrawableBuilder.IconValue.REPEAT_ONCE);
-                    builder.setColor(Config.accentColor(getActivity(), ateKey));
-                } else if (MusicPlayer.getRepeatMode() == MusicService.REPEAT_ALL) {
-                    builder.setColor(Config.accentColor(getActivity(), ateKey));
-                    builder.setIcon(MaterialDrawableBuilder.IconValue.REPEAT);
-                }
+            if (MusicPlayer.getRepeatMode() == MusicService.REPEAT_NONE) {
+                builder.setIcon(MaterialDrawableBuilder.IconValue.REPEAT);
+                builder.setColor(Config.textColorPrimary(getActivity(), ateKey));
+            } else if (MusicPlayer.getRepeatMode() == MusicService.REPEAT_CURRENT) {
+                builder.setIcon(MaterialDrawableBuilder.IconValue.REPEAT_ONCE);
+                builder.setColor(Config.accentColor(getActivity(), ateKey));
+            } else if (MusicPlayer.getRepeatMode() == MusicService.REPEAT_ALL) {
+                builder.setColor(Config.accentColor(getActivity(), ateKey));
+                builder.setIcon(MaterialDrawableBuilder.IconValue.REPEAT);
+            }
 
 
             repeat.setImageDrawable(builder.build());
@@ -546,17 +545,15 @@ public class BaseNowplayingFragment extends Fragment implements MusicStateListen
                         });
             }
             if (songtitle != null && MusicPlayer.getTrackName() != null) {
-                    songtitle.setText(MusicPlayer.getTrackName());
-                    if(MusicPlayer.getTrackName().length() <= 23){
-                        songtitle.setTextSize(25);
-                    }
-                    else if(MusicPlayer.getTrackName().length() >= 30){
-                        songtitle.setTextSize(18);
-                    }
-                    else{
-                        songtitle.setTextSize(18 + (MusicPlayer.getTrackName().length() - 24));
-                    }
-                    Log.v("BaseNowPlayingFrag", "Title Text Size: " + songtitle.getTextSize());
+                songtitle.setText(MusicPlayer.getTrackName());
+                if (MusicPlayer.getTrackName().length() <= 23) {
+                    songtitle.setTextSize(25);
+                } else if (MusicPlayer.getTrackName().length() >= 30) {
+                    songtitle.setTextSize(18);
+                } else {
+                    songtitle.setTextSize(18 + (MusicPlayer.getTrackName().length() - 24));
+                }
+                Log.v("BaseNowPlayingFrag", "Title Text Size: " + songtitle.getTextSize());
             }
             if (songartist != null) {
                 songartist.setText(MusicPlayer.getArtistName());

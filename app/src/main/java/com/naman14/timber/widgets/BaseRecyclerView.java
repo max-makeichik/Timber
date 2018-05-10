@@ -1,15 +1,12 @@
 package com.naman14.timber.widgets;
 
 import android.content.Context;
-import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TextView;
 
-import com.afollestad.appthemeengine.ATE;
 import com.afollestad.appthemeengine.Config;
-import com.naman14.timber.MusicPlayer;
 import com.naman14.timber.utils.Helpers;
 
 import net.steamcrafted.materialiconlib.MaterialDrawableBuilder;
@@ -22,13 +19,12 @@ public class BaseRecyclerView extends RecyclerView {
 
         @Override
         public void onChanged() {
-            Adapter<?> adapter =  getAdapter();
-            if(adapter != null && emptyView != null) {
-                if(adapter.getItemCount() == 0) {
+            Adapter<?> adapter = getAdapter();
+            if (adapter != null && emptyView != null) {
+                if (adapter.getItemCount() == 0) {
                     emptyView.setVisibility(View.VISIBLE);
                     BaseRecyclerView.this.setVisibility(View.GONE);
-                }
-                else {
+                } else {
                     emptyView.setVisibility(View.GONE);
                     BaseRecyclerView.this.setVisibility(View.VISIBLE);
                 }
@@ -53,7 +49,7 @@ public class BaseRecyclerView extends RecyclerView {
     public void setAdapter(Adapter adapter) {
         super.setAdapter(adapter);
 
-        if(adapter != null) {
+        if (adapter != null) {
             adapter.registerAdapterDataObserver(emptyObserver);
         }
 

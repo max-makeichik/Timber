@@ -111,8 +111,7 @@ public class SongLoader {
             Song song = getSongForCursor(cursor);
             cursor.close();
             return song;
-        }
-        else return new Song();
+        } else return new Song();
     }
 
     public static ArrayList<Song> getAllSongs(Context context) {

@@ -17,7 +17,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.naman14.timber.MusicPlayer;
 import com.naman14.timber.R;
 import com.naman14.timber.dataloaders.FolderLoader;
 import com.naman14.timber.dataloaders.SongLoader;
@@ -227,7 +226,7 @@ public class FolderAdapter extends BaseSongAdapter<FolderAdapter.ItemHolder> imp
                     @Override
                     public void run() {
                         int current = -1;
-                        long songId = SongLoader.getSongFromPath(mFileSet.get(getAdapterPosition()).getAbsolutePath(),mContext).id;
+                        long songId = SongLoader.getSongFromPath(mFileSet.get(getAdapterPosition()).getAbsolutePath(), mContext).id;
                         int count = 0;
                         for (Song song : mSongs) {
                             if (song.id != -1) {

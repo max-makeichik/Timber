@@ -23,7 +23,7 @@ public class StorageSelectDialog implements DialogInterface.OnClickListener {
     public StorageSelectDialog(final Context context) {
         mStorages = getAvailableStorages(context);
         String[] names = new String[mStorages.length];
-        for (int i=0;i<mStorages.length;i++) {
+        for (int i = 0; i < mStorages.length; i++) {
             names[i] = mStorages[i].getName();
         }
         mDialog = new AlertDialog.Builder(context)

@@ -128,7 +128,7 @@ public class BaseQueueAdapter extends RecyclerView.Adapter<BaseQueueAdapter.Item
                                 break;
                             case R.id.popup_song_delete:
                                 long[] deleteIds = {arraylist.get(position).id};
-                                TimberUtils.showDeleteDialog(mContext,arraylist.get(position).title, deleteIds, BaseQueueAdapter.this, position);
+                                TimberUtils.showDeleteDialog(mContext, arraylist.get(position).title, deleteIds, BaseQueueAdapter.this, position);
                                 break;
                         }
                         return false;
@@ -149,7 +149,7 @@ public class BaseQueueAdapter extends RecyclerView.Adapter<BaseQueueAdapter.Item
         return ret;
     }
 
-    public void removeSongAt(int i){
+    public void removeSongAt(int i) {
         arraylist.remove(i);
     }
 

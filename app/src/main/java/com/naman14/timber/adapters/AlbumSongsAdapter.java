@@ -114,7 +114,7 @@ public class AlbumSongsAdapter extends BaseSongAdapter<AlbumSongsAdapter.ItemHol
                                 break;
                             case R.id.popup_song_delete:
                                 long[] deleteIds = {arraylist.get(position).id};
-                                TimberUtils.showDeleteDialog(mContext,arraylist.get(position).title, deleteIds, AlbumSongsAdapter.this, position);
+                                TimberUtils.showDeleteDialog(mContext, arraylist.get(position).title, deleteIds, AlbumSongsAdapter.this, position);
                                 break;
                         }
                         return false;
@@ -147,7 +147,7 @@ public class AlbumSongsAdapter extends BaseSongAdapter<AlbumSongsAdapter.ItemHol
     }
 
     @Override
-    public void removeSongAt(int i){
+    public void removeSongAt(int i) {
         arraylist.remove(i);
     }
 

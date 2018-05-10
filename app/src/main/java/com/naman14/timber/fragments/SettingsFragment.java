@@ -54,7 +54,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     private static final String KEY_START_PAGE = "start_page_preference";
     private boolean lastFMlogedin;
 
-    private Preference nowPlayingSelector,  lastFMlogin, lockscreen, xposed;
+    private Preference nowPlayingSelector, lastFMlogin, lockscreen, xposed;
 
     private SwitchPreference toggleAnimations;
     private ListPreference themePreference, startPagePreference;
@@ -137,7 +137,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 Bundle extras = new Bundle();
-                extras.putBoolean("lockscreen",(boolean)newValue);
+                extras.putBoolean("lockscreen", (boolean) newValue);
                 mPreferences.updateService(extras);
                 return true;
             }
@@ -147,7 +147,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 Bundle extras = new Bundle();
-                extras.putBoolean("xtrack",(boolean)newValue);
+                extras.putBoolean("xtrack", (boolean) newValue);
                 mPreferences.updateService(extras);
                 return true;
             }
@@ -159,8 +159,8 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
                 if (lastFMlogedin) {
                     LastFmClient.getInstance(getActivity()).logout();
                     Bundle extras = new Bundle();
-                    extras.putString("lf_token","logout");
-                    extras.putString("lf_user",null);
+                    extras.putString("lf_token", "logout");
+                    extras.putString("lf_user", null);
                     mPreferences.updateService(extras);
                     updateLastFM();
                 } else {
@@ -257,7 +257,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         if (username != null) {
             lastFMlogedin = true;
             lastFMlogin.setTitle("Logout");
-            lastFMlogin.setSummary(String.format(getString(R.string.lastfm_loged_in),username));
+            lastFMlogin.setSummary(String.format(getString(R.string.lastfm_loged_in), username));
         } else {
             lastFMlogedin = false;
             lastFMlogin.setTitle("Login");

@@ -15,7 +15,6 @@
 
 package com.naman14.timber;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.ContentResolver;
@@ -25,7 +24,6 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.IBinder;
@@ -40,8 +38,6 @@ import com.naman14.timber.utils.TimberUtils.IdType;
 
 import java.util.Arrays;
 import java.util.WeakHashMap;
-
-import static android.support.v4.content.PermissionChecker.checkSelfPermission;
 
 public class MusicPlayer {
 
@@ -517,8 +513,8 @@ public class MusicPlayer {
         try {
             mService.setShuffleMode(MusicService.SHUFFLE_NORMAL);
             if (getQueuePosition() == 0 && mService.getAudioId() == trackList[0] && Arrays.equals(trackList, getQueue())) {
-                    mService.play();
-                    return;
+                mService.play();
+                return;
             }
             mService.open(trackList, -1, -1, IdType.NA.mId);
             mService.play();
@@ -653,7 +649,7 @@ public class MusicPlayer {
     }
 
     public static void clearQueue() {
-        if (mService!=null) {
+        if (mService != null) {
             try {
                 mService.removeTracks(0, Integer.MAX_VALUE);
             } catch (final RemoteException ignored) {

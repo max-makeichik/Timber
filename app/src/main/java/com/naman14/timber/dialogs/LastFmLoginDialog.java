@@ -15,7 +15,6 @@ import com.naman14.timber.fragments.SettingsFragment;
 import com.naman14.timber.lastfmapi.LastFmClient;
 import com.naman14.timber.lastfmapi.callbacks.UserListener;
 import com.naman14.timber.lastfmapi.models.UserLoginQuery;
-import com.naman14.timber.utils.PreferencesUtility;
 
 /**
  * Created by christoph on 17.07.16.

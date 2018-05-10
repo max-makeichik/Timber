@@ -52,7 +52,6 @@ import com.naman14.timber.dataloaders.TopTracksLoader;
 import com.naman14.timber.listeners.SimplelTransitionListener;
 import com.naman14.timber.models.Song;
 import com.naman14.timber.utils.Constants;
-import com.naman14.timber.utils.PreferencesUtility;
 import com.naman14.timber.utils.TimberUtils;
 import com.naman14.timber.widgets.DividerItemDecoration;
 import com.naman14.timber.widgets.DragSortRecycler;

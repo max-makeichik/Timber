@@ -214,6 +214,7 @@ public class ArtistDetailFragment extends Fragment {
         if (getActivity() != null)
             ATE.applyMenu(getActivity(), "dark_theme", menu);
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

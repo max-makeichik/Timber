@@ -166,5 +166,8 @@
     <string name="cast">Cast</string>
     <string name="now_playing_no_track_selected">\"No current track selected.</string>
     <string name="lyrics_loading">Loading...</string>
+    <string name="set_ringtone">Set as ringtone</string>
+    <string name="set_as_ringtone_success">Done</string>
+    <string name="set_as_ringtone_error">Something went wrong</string>
 
 </resources>

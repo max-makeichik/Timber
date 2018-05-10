@@ -184,7 +184,7 @@ public class SearchActivity extends BaseActivity implements SearchView.OnQueryTe
         }
     }
 
-    private class SearchTask extends AsyncTask<String,Void,ArrayList<Object>> {
+    private class SearchTask extends AsyncTask<String, Void, ArrayList<Object>> {
 
         @Override
         protected ArrayList<Object> doInBackground(String... params) {

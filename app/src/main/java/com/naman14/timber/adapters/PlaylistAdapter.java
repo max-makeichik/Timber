@@ -126,7 +126,7 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ItemHo
                         }
                     }
                 });
-        itemHolder.artist.setText(" " + String.valueOf(songCountInt) + " " + mContext.getString(R.string.songs) + " - " + TimberUtils.makeShortTimeString(mContext,totalRuntime));
+        itemHolder.artist.setText(" " + String.valueOf(songCountInt) + " " + mContext.getString(R.string.songs) + " - " + TimberUtils.makeShortTimeString(mContext, totalRuntime));
 
         if (TimberUtils.isLollipop())
             itemHolder.albumArt.setTransitionName("transition_album_art" + i);
@@ -142,8 +142,8 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ItemHo
                         List<Song> lastAddedSongs = LastAddedLoader.getLastAddedSongs(mContext);
                         songCountInt = lastAddedSongs.size();
                         totalRuntime = 0;
-                        for(Song song : lastAddedSongs){
-                                totalRuntime += song.duration / 1000; //for some reason default playlists have songs with durations 1000x larger than they should be
+                        for (Song song : lastAddedSongs) {
+                            totalRuntime += song.duration / 1000; //for some reason default playlists have songs with durations 1000x larger than they should be
                         }
 
                         if (songCountInt != 0) {
@@ -155,7 +155,7 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ItemHo
                         List<Song> recentsongs = SongLoader.getSongsForCursor(TopTracksLoader.getCursor());
                         songCountInt = recentsongs.size();
                         totalRuntime = 0;
-                        for(Song song : recentsongs){
+                        for (Song song : recentsongs) {
                             totalRuntime += song.duration / 1000; //for some reason default playlists have songs with durations 1000x larger than they should be
                         }
 
@@ -168,7 +168,7 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ItemHo
                         List<Song> topsongs = SongLoader.getSongsForCursor(TopTracksLoader.getCursor());
                         songCountInt = topsongs.size();
                         totalRuntime = 0;
-                        for(Song song : topsongs){
+                        for (Song song : topsongs) {
                             totalRuntime += song.duration / 1000; //for some reason default playlists have songs with durations 1000x larger than they should be
                         }
 
@@ -180,7 +180,7 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ItemHo
                         List<Song> playlistsongs = PlaylistSongLoader.getSongsInPlaylist(mContext, id);
                         songCountInt = playlistsongs.size();
                         totalRuntime = 0;
-                        for(Song song : playlistsongs){
+                        for (Song song : playlistsongs) {
                             totalRuntime += song.duration;
                         }
 
@@ -194,7 +194,7 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ItemHo
                 List<Song> playlistsongs = PlaylistSongLoader.getSongsInPlaylist(mContext, id);
                 songCountInt = playlistsongs.size();
                 totalRuntime = 0;
-                for(Song song : playlistsongs){
+                for (Song song : playlistsongs) {
                     totalRuntime += song.duration;
                 }
 
