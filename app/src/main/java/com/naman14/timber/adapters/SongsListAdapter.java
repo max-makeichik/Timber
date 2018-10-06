@@ -43,8 +43,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-
 public class SongsListAdapter extends BaseSongAdapter<SongsListAdapter.ItemHolder> implements BubbleTextGetter {
 
     public int currentlyPlayingPosition;
@@ -173,16 +171,6 @@ public class SongsListAdapter extends BaseSongAdapter<SongsListAdapter.ItemHolde
                     break;
                 case R.id.popup_song_addto_playlist:
                     AddPlaylistDialog.newInstance(arraylist.get(position)).show(mContext.getSupportFragmentManager(), "ADD_PLAYLIST");
-                    break;
-                case R.id.popup_song_set_ringtone:
-                    TimberUtils.setAsRingtone(mContext, arraylist.get(position))
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(() -> {
-                                TimberUtils.showToast(mContext, mContext.getString(R.string.set_as_ringtone_success));
-                            }, throwable -> {
-                                throwable.printStackTrace();
-                                TimberUtils.showToast(mContext, mContext.getString(R.string.set_as_ringtone_error));
-                            });
                     break;
                 case R.id.popup_song_share:
                     TimberUtils.shareTrack(mContext, arraylist.get(position).id);

@@ -31,10 +31,6 @@
         android:title="@string/go_to_artist"/>
 
     <item
-        android:id="@+id/popup_song_set_ringtone"
-        android:title="@string/set_ringtone"/>
-
-    <item
         android:id="@+id/popup_song_share"
         android:title="@string/share"/>
 
