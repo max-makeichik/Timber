@@ -24,7 +24,7 @@ import android.view.KeyEvent;
 
 import com.naman14.timber.MusicService;
 import com.naman14.timber.activities.MainActivity;
-import com.naman14.timber.utils.PreferencesUtility;
+import com.naman14.timber.utils.PrefsUtil;
 
 /**
  * Used to control headset playback.
@@ -139,7 +139,7 @@ public class MediaButtonIntentReceiver extends WakefulBroadcastReceiver {
     public void onReceive(final Context context, final Intent intent) {
         final String intentAction = intent.getAction();
         if (AudioManager.ACTION_AUDIO_BECOMING_NOISY.equals(intentAction)) {
-            if (PreferencesUtility.getInstance(context).pauseEnabledOnDetach())
+            if (PrefsUtil.getInstance(context).pauseEnabledOnDetach())
                 startService(context, MusicService.CMDPAUSE);
         } else if (Intent.ACTION_MEDIA_BUTTON.equals(intentAction)) {
             final KeyEvent event = intent.getParcelableExtra(Intent.EXTRA_KEY_EVENT);

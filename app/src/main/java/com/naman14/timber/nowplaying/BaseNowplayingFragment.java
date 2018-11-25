@@ -53,7 +53,7 @@ import com.naman14.timber.listeners.MusicStateListener;
 import com.naman14.timber.timely.TimelyView;
 import com.naman14.timber.utils.Helpers;
 import com.naman14.timber.utils.NavigationUtils;
-import com.naman14.timber.utils.PreferencesUtility;
+import com.naman14.timber.utils.PrefsUtil;
 import com.naman14.timber.utils.SlideTrackSwitcher;
 import com.naman14.timber.utils.TimberUtils;
 import com.naman14.timber.widgets.CircularSeekBar;
@@ -710,7 +710,7 @@ public class BaseNowplayingFragment extends Fragment implements MusicStateListen
     }
 
     protected void initGestures(View v) {
-        if (PreferencesUtility.getInstance(v.getContext()).isGesturesEnabled()) {
+        if (PrefsUtil.getInstance(v.getContext()).isGesturesEnabled()) {
             new SlideTrackSwitcher() {
                 @Override
                 public void onSwipeBottom() {

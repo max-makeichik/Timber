@@ -23,7 +23,7 @@ import com.afollestad.appthemeengine.ATE;
 import com.naman14.timber.R;
 import com.naman14.timber.adapters.FolderAdapter;
 import com.naman14.timber.dialogs.StorageSelectDialog;
-import com.naman14.timber.utils.PreferencesUtility;
+import com.naman14.timber.utils.PrefsUtil;
 import com.naman14.timber.widgets.DividerItemDecoration;
 import com.naman14.timber.widgets.FastScroller;
 
@@ -124,7 +124,7 @@ public class FoldersFragment extends Fragment implements StorageSelectDialog.OnD
         protected String doInBackground(String... params) {
             Activity activity = getActivity();
             if (activity != null) {
-                mAdapter = new FolderAdapter(activity, new File(PreferencesUtility.getInstance(activity).getLastFolder()));
+                mAdapter = new FolderAdapter(activity, new File(PrefsUtil.getInstance(activity).getLastFolder()));
                 updateTheme();
             }
             return "Executed";

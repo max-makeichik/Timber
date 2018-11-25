@@ -21,7 +21,7 @@ import com.naman14.timber.R;
 import com.naman14.timber.dataloaders.FolderLoader;
 import com.naman14.timber.dataloaders.SongLoader;
 import com.naman14.timber.models.Song;
-import com.naman14.timber.utils.PreferencesUtility;
+import com.naman14.timber.utils.PrefsUtil;
 import com.naman14.timber.utils.TimberUtils;
 import com.naman14.timber.widgets.BubbleTextGetter;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -194,7 +194,7 @@ public class FolderAdapter extends BaseSongAdapter<FolderAdapter.ItemHolder> imp
             mFileSet = files;
             notifyDataSetChanged();
             mBusy = false;
-            PreferencesUtility.getInstance(mContext).storeLastFolder(mRoot.getPath());
+            PrefsUtil.getInstance(mContext).storeLastFolder(mRoot.getPath());
         }
     }
 

@@ -36,7 +36,7 @@ import com.naman14.timber.lastfmapi.models.LastfmArtist;
 import com.naman14.timber.models.Artist;
 import com.naman14.timber.utils.Helpers;
 import com.naman14.timber.utils.NavigationUtils;
-import com.naman14.timber.utils.PreferencesUtility;
+import com.naman14.timber.utils.PrefsUtil;
 import com.naman14.timber.utils.TimberUtils;
 import com.naman14.timber.widgets.BubbleTextGetter;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -56,7 +56,7 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ItemHolder
     public ArtistAdapter(Activity context, List<Artist> arraylist) {
         this.arraylist = arraylist;
         this.mContext = context;
-        this.isGrid = PreferencesUtility.getInstance(mContext).isArtistsInGrid();
+        this.isGrid = PrefsUtil.getInstance(mContext).isArtistsInGrid();
     }
 
     public static int getOpaqueColor(@ColorInt int paramInt) {
@@ -150,7 +150,7 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ItemHolder
             }
         });
 
-        if (TimberUtils.isLollipop())
+        if (TimberUtils.isLollipopAndNewer())
             itemHolder.artistImage.setTransitionName("transition_artist_art" + i);
 
     }

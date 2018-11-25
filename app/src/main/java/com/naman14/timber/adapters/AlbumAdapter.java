@@ -30,7 +30,7 @@ import com.naman14.timber.R;
 import com.naman14.timber.models.Album;
 import com.naman14.timber.utils.Helpers;
 import com.naman14.timber.utils.NavigationUtils;
-import com.naman14.timber.utils.PreferencesUtility;
+import com.naman14.timber.utils.PrefsUtil;
 import com.naman14.timber.utils.TimberUtils;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -49,7 +49,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ItemHolder> 
     public AlbumAdapter(Activity context, List<Album> arraylist) {
         this.arraylist = arraylist;
         this.mContext = context;
-        this.isGrid = PreferencesUtility.getInstance(mContext).isAlbumsInGrid();
+        this.isGrid = PrefsUtil.getInstance(mContext).isAlbumsInGrid();
 
     }
 
@@ -123,7 +123,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ItemHolder> 
                     }
                 });
 
-        if (TimberUtils.isLollipop())
+        if (TimberUtils.isLollipopAndNewer())
             itemHolder.albumArt.setTransitionName("transition_album_art" + i);
 
     }

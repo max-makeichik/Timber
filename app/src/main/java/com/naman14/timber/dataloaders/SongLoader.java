@@ -24,7 +24,7 @@ import android.provider.MediaStore;
 import android.text.TextUtils;
 
 import com.naman14.timber.models.Song;
-import com.naman14.timber.utils.PreferencesUtility;
+import com.naman14.timber.utils.PrefsUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -137,7 +137,7 @@ public class SongLoader {
 
 
     public static Cursor makeSongCursor(Context context, String selection, String[] paramArrayOfString) {
-        final String songSortOrder = PreferencesUtility.getInstance(context).getSongSortOrder();
+        final String songSortOrder = PrefsUtil.getInstance(context).getSongSortOrder();
         return makeSongCursor(context, selection, paramArrayOfString, songSortOrder);
     }
 

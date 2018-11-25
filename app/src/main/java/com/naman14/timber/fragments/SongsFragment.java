@@ -32,7 +32,7 @@ import com.naman14.timber.adapters.SongsListAdapter;
 import com.naman14.timber.dataloaders.SongLoader;
 import com.naman14.timber.listeners.MusicStateListener;
 import com.naman14.timber.models.Song;
-import com.naman14.timber.utils.PreferencesUtility;
+import com.naman14.timber.utils.PrefsUtil;
 import com.naman14.timber.utils.SortOrder;
 import com.naman14.timber.widgets.BaseRecyclerView;
 import com.naman14.timber.widgets.DividerItemDecoration;
@@ -44,12 +44,12 @@ public class SongsFragment extends Fragment implements MusicStateListener {
 
     private SongsListAdapter mAdapter;
     private BaseRecyclerView recyclerView;
-    private PreferencesUtility mPreferences;
+    private PrefsUtil mPreferences;
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPreferences = PreferencesUtility.getInstance(getActivity());
+        mPreferences = PrefsUtil.getInstance(getActivity());
     }
 
     @Override
@@ -70,11 +70,9 @@ public class SongsFragment extends Fragment implements MusicStateListener {
     }
 
     public void restartLoader() {
-
     }
 
     public void onPlaylistChanged() {
-
     }
 
     public void onMetaChanged() {
@@ -155,7 +153,6 @@ public class SongsFragment extends Fragment implements MusicStateListener {
             recyclerView.setAdapter(mAdapter);
             if (getActivity() != null)
                 recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
-
         }
 
         @Override

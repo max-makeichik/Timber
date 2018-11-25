@@ -76,7 +76,7 @@ import com.naman14.timber.provider.MusicPlaybackState;
 import com.naman14.timber.provider.RecentStore;
 import com.naman14.timber.provider.SongPlayCount;
 import com.naman14.timber.utils.NavigationUtils;
-import com.naman14.timber.utils.PreferencesUtility;
+import com.naman14.timber.utils.PrefsUtil;
 import com.naman14.timber.utils.TimberUtils;
 import com.naman14.timber.utils.TimberUtils.IdType;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -364,7 +364,7 @@ public class MusicService extends Service {
         if (LastfmUserSession.getSession(this) != null) {
             LastFmClient.getInstance(this).Scrobble(null);
         }
-        PreferencesUtility pref = PreferencesUtility.getInstance(this);
+        PrefsUtil pref = PrefsUtil.getInstance(this);
         mShowAlbumArtOnLockscreen = pref.getSetAlbumartLockscreen();
         mActivateXTrackSelector = pref.getXPosedTrackselectorEnabled();
     }
@@ -570,7 +570,7 @@ public class MusicService extends Service {
         } else if (UPDATE_PREFERENCES.equals(action)) {
             onPreferencesUpdate(intent.getExtras());
         } else if (AudioManager.ACTION_AUDIO_BECOMING_NOISY.equals(action)) {
-            if (PreferencesUtility.getInstance(getApplicationContext()).pauseEnabledOnDetach()) {
+            if (PrefsUtil.getInstance(getApplicationContext()).pauseEnabledOnDetach()) {
                 pause();
             }
         }
@@ -603,7 +603,7 @@ public class MusicService extends Service {
         int notificationId = hashCode();
         if (mNotifyMode != newNotifyMode) {
             if (mNotifyMode == NOTIFY_MODE_FOREGROUND) {
-                if (TimberUtils.isLollipop())
+                if (TimberUtils.isLollipopAndNewer())
                     stopForeground(newNotifyMode == NOTIFY_MODE_NONE);
                 else
                     stopForeground(newNotifyMode == NOTIFY_MODE_NONE || newNotifyMode == NOTIFY_MODE_BACKGROUND);
@@ -719,7 +719,7 @@ public class MusicService extends Service {
         if (goToIdle) {
             setIsSupposedToBePlaying(false, false);
         } else {
-            if (TimberUtils.isLollipop())
+            if (TimberUtils.isLollipopAndNewer())
                 stopForeground(false);
             else stopForeground(true);
         }
@@ -1289,14 +1289,14 @@ public class MusicService extends Service {
             builder.setShowWhen(false);
         }
 
-        if (TimberUtils.isLollipop()) {
+        if (TimberUtils.isLollipopAndNewer()) {
             builder.setVisibility(Notification.VISIBILITY_PUBLIC);
             android.support.v4.media.app.NotificationCompat.MediaStyle style = new android.support.v4.media.app.NotificationCompat.MediaStyle()
                     .setMediaSession(mSession.getSessionToken())
                     .setShowActionsInCompactView(0, 1, 2, 3);
             builder.setStyle(style);
         }
-        if (artwork != null && TimberUtils.isLollipop()) {
+        if (artwork != null && TimberUtils.isLollipopAndNewer()) {
             builder.setColor(Palette.from(artwork).generate().getVibrantColor(Color.parseColor("#403f4d")));
         }
 

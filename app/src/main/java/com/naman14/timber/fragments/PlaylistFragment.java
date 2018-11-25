@@ -43,7 +43,7 @@ import com.naman14.timber.dialogs.CreatePlaylistDialog;
 import com.naman14.timber.models.Playlist;
 import com.naman14.timber.subfragments.PlaylistPagerFragment;
 import com.naman14.timber.utils.Constants;
-import com.naman14.timber.utils.PreferencesUtility;
+import com.naman14.timber.utils.PrefsUtil;
 import com.naman14.timber.widgets.DividerItemDecoration;
 import com.naman14.timber.widgets.MultiViewPager;
 
@@ -59,7 +59,7 @@ public class PlaylistFragment extends Fragment {
     private GridLayoutManager layoutManager;
     private RecyclerView.ItemDecoration itemDecoration;
 
-    private PreferencesUtility mPreferences;
+    private PrefsUtil mPreferences;
     private boolean isGrid;
     private boolean isDefault;
     private boolean showAuto;
@@ -70,7 +70,7 @@ public class PlaylistFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPreferences = PreferencesUtility.getInstance(getActivity());
+        mPreferences = PrefsUtil.getInstance(getActivity());
         isGrid = mPreferences.getPlaylistView() == Constants.PLAYLIST_VIEW_GRID;
         isDefault = mPreferences.getPlaylistView() == Constants.PLAYLIST_VIEW_DEFAULT;
         showAuto = mPreferences.showAutoPlaylist();
@@ -310,7 +310,6 @@ public class PlaylistFragment extends Fragment {
             if (resultCode == Activity.RESULT_OK) {
                 reloadPlaylists();
             }
-
         }
     }
 }

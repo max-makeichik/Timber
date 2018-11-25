@@ -33,20 +33,20 @@ import com.afollestad.appthemeengine.Config;
 import com.naman14.timber.R;
 import com.naman14.timber.utils.ATEUtils;
 import com.naman14.timber.utils.Helpers;
-import com.naman14.timber.utils.PreferencesUtility;
+import com.naman14.timber.utils.PrefsUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainFragment extends Fragment {
 
-    private PreferencesUtility mPreferences;
+    private PrefsUtil mPreferences;
     private ViewPager viewPager;
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPreferences = PreferencesUtility.getInstance(getActivity());
+        mPreferences = PrefsUtil.getInstance(getActivity());
     }
 
     @Override

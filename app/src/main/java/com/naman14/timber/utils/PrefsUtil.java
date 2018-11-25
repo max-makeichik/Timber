@@ -17,7 +17,6 @@ package com.naman14.timber.utils;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -27,17 +26,13 @@ import android.preference.PreferenceManager;
 import com.naman14.timber.MusicPlayer;
 import com.naman14.timber.MusicService;
 
-public final class PreferencesUtility {
+public final class PrefsUtil {
 
-    public static final String ARTIST_SORT_ORDER = "artist_sort_order";
-    public static final String ARTIST_SONG_SORT_ORDER = "artist_song_sort_order";
-    public static final String ARTIST_ALBUM_SORT_ORDER = "artist_album_sort_order";
-    public static final String ALBUM_SORT_ORDER = "album_sort_order";
-    public static final String ALBUM_SONG_SORT_ORDER = "album_song_sort_order";
-    public static final String SONG_SORT_ORDER = "song_sort_order";
-    private static final String NOW_PLAYING_SELECTOR = "now_paying_selector";
-    private static final String TOGGLE_ANIMATIONS = "toggle_animations";
-    private static final String TOGGLE_SYSTEM_ANIMATIONS = "toggle_system_animations";
+    private static final String ARTIST_SORT_ORDER = "artist_sort_order";
+    private static final String ARTIST_SONG_SORT_ORDER = "artist_song_sort_order";
+    private static final String ALBUM_SORT_ORDER = "album_sort_order";
+    private static final String ALBUM_SONG_SORT_ORDER = "album_song_sort_order";
+    private static final String SONG_SORT_ORDER = "song_sort_order";
     private static final String TOGGLE_ARTIST_GRID = "toggle_artist_grid";
     private static final String TOGGLE_ALBUM_GRID = "toggle_album_grid";
     private static final String TOGGLE_PLAYLIST_VIEW = "toggle_playlist_view";
@@ -50,37 +45,33 @@ public final class PreferencesUtility {
     private static final String START_PAGE_PREFERENCE_LASTOPENED = "start_page_preference_latopened";
     private static final String NOW_PLAYNG_THEME_VALUE = "now_playing_theme_value";
     private static final String TOGGLE_XPOSED_TRACKSELECTOR = "toggle_xposed_trackselector";
-    public static final String LAST_ADDED_CUTOFF = "last_added_cutoff";
-    public static final String GESTURES = "gestures";
+    private static final String LAST_ADDED_CUTOFF = "last_added_cutoff";
+    private static final String GESTURES = "gestures";
+    private static final String SHOW_LAST_ADDED_ON_START = "SHOW_LAST_ADDED_ON_START";
 
-    public static final String FULL_UNLOCKED = "full_version_unlocked";
+    private static final String FULL_UNLOCKED = "full_version_unlocked";
 
     private static final String SHOW_LOCKSCREEN_ALBUMART = "show_albumart_lockscreen";
     private static final String ARTIST_ALBUM_IMAGE = "artist_album_image";
     private static final String ARTIST_ALBUM_IMAGE_MOBILE = "artist_album_image_mobile";
     private static final String ALWAYS_LOAD_ALBUM_IMAGES_LASTFM = "always_load_album_images_lastfm";
 
-    private static PreferencesUtility sInstance;
+    private static PrefsUtil sInstance;
 
     private static SharedPreferences mPreferences;
     private static Context context;
     private ConnectivityManager connManager = null;
 
-    public PreferencesUtility(final Context context) {
+    public PrefsUtil(final Context context) {
         this.context = context;
         mPreferences = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
-    public static final PreferencesUtility getInstance(final Context context) {
+    public static final PrefsUtil getInstance(final Context context) {
         if (sInstance == null) {
-            sInstance = new PreferencesUtility(context.getApplicationContext());
+            sInstance = new PrefsUtil(context.getApplicationContext());
         }
         return sInstance;
-    }
-
-
-    public void setOnSharedPreferenceChangeListener(OnSharedPreferenceChangeListener listener) {
-        mPreferences.registerOnSharedPreferenceChangeListener(listener);
     }
 
     public boolean isArtistsInGrid() {
@@ -148,19 +139,6 @@ public final class PreferencesUtility {
     public final String getArtistSongSortOrder() {
         return mPreferences.getString(ARTIST_SONG_SORT_ORDER,
                 SortOrder.ArtistSongSortOrder.SONG_A_Z);
-    }
-
-    public void setArtistSongSortOrder(final String value) {
-        setSortOrder(ARTIST_SONG_SORT_ORDER, value);
-    }
-
-    public final String getArtistAlbumSortOrder() {
-        return mPreferences.getString(ARTIST_ALBUM_SORT_ORDER,
-                SortOrder.ArtistAlbumSortOrder.ALBUM_A_Z);
-    }
-
-    public void setArtistAlbumSortOrder(final String value) {
-        setSortOrder(ARTIST_ALBUM_SORT_ORDER, value);
     }
 
     public final String getAlbumSortOrder() {
@@ -235,6 +213,10 @@ public final class PreferencesUtility {
 
     public boolean isGesturesEnabled() {
         return mPreferences.getBoolean(GESTURES, true);
+    }
+
+    public boolean isShowLastAddedOnStartEnabled() {
+        return mPreferences.getBoolean(SHOW_LAST_ADDED_ON_START, true);
     }
 
     public void storeLastFolder(String path) {

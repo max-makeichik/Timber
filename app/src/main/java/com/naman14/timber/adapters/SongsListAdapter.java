@@ -108,7 +108,7 @@ public class SongsListAdapter extends BaseSongAdapter<SongsListAdapter.ItemHolde
 
 
         if (animate && isPlaylist) {
-            if (TimberUtils.isLollipop())
+            if (TimberUtils.isLollipopAndNewer())
                 setAnimation(itemHolder.itemView, i);
             else {
                 if (i > 10)

@@ -61,10 +61,9 @@ public class TimberUtils {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
     }
 
-    public static boolean isLollipop() {
+    public static boolean isLollipopAndNewer() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
     }
-
 
     public static boolean isJellyBeanMR2() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2;
@@ -226,7 +225,7 @@ public class TimberUtils {
     }
 
     public static void clearLastAdded(Context context) {
-        PreferencesUtility.getInstance(context)
+        PrefsUtil.getInstance(context)
                 .setLastAddedCutoff(System.currentTimeMillis());
     }
 

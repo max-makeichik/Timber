@@ -21,7 +21,7 @@ import com.naman14.timber.models.Song;
 import com.naman14.timber.utils.Constants;
 import com.naman14.timber.utils.Helpers;
 import com.naman14.timber.utils.NavigationUtils;
-import com.naman14.timber.utils.PreferencesUtility;
+import com.naman14.timber.utils.PrefsUtil;
 import com.naman14.timber.utils.TimberUtils;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -49,8 +49,8 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ItemHo
     public PlaylistAdapter(Activity context, List<Playlist> arraylist) {
         this.arraylist = arraylist;
         this.mContext = context;
-        this.isGrid = PreferencesUtility.getInstance(mContext).getPlaylistView() == Constants.PLAYLIST_VIEW_GRID;
-        this.showAuto = PreferencesUtility.getInstance(mContext).showAutoPlaylist();
+        this.isGrid = PrefsUtil.getInstance(mContext).getPlaylistView() == Constants.PLAYLIST_VIEW_GRID;
+        this.showAuto = PrefsUtil.getInstance(mContext).showAutoPlaylist();
         Random random = new Random();
         int rndInt = random.nextInt(foregroundColors.length);
         foregroundColor = foregroundColors[rndInt];
@@ -128,7 +128,7 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ItemHo
                 });
         itemHolder.artist.setText(" " + String.valueOf(songCountInt) + " " + mContext.getString(R.string.songs) + " - " + TimberUtils.makeShortTimeString(mContext, totalRuntime));
 
-        if (TimberUtils.isLollipop())
+        if (TimberUtils.isLollipopAndNewer())
             itemHolder.albumArt.setTransitionName("transition_album_art" + i);
 
     }
@@ -215,6 +215,7 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ItemHo
     public void updateDataSet(List<Playlist> arraylist) {
         this.arraylist.clear();
         this.arraylist.addAll(arraylist);
+
         notifyDataSetChanged();
     }
 

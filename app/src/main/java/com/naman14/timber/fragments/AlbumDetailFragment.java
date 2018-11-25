@@ -57,7 +57,7 @@ import com.naman14.timber.utils.FabAnimationUtils;
 import com.naman14.timber.utils.Helpers;
 import com.naman14.timber.utils.ImageUtils;
 import com.naman14.timber.utils.NavigationUtils;
-import com.naman14.timber.utils.PreferencesUtility;
+import com.naman14.timber.utils.PrefsUtil;
 import com.naman14.timber.utils.SortOrder;
 import com.naman14.timber.utils.TimberUtils;
 import com.naman14.timber.widgets.DividerItemDecoration;
@@ -89,7 +89,7 @@ public class AlbumDetailFragment extends Fragment {
 
     private boolean loadFailed = false;
 
-    private PreferencesUtility mPreferences;
+    private PrefsUtil mPreferences;
     private Context context;
     private int primaryColor = -1;
 
@@ -112,7 +112,7 @@ public class AlbumDetailFragment extends Fragment {
         }
         context = getActivity();
         mContext = (AppCompatActivity) context;
-        mPreferences = PreferencesUtility.getInstance(context);
+        mPreferences = PrefsUtil.getInstance(context);
     }
 
     @TargetApi(21)

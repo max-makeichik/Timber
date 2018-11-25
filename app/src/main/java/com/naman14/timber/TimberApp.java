@@ -20,7 +20,7 @@ import com.afollestad.appthemeengine.ATE;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.naman14.timber.permissions.Nammu;
-import com.naman14.timber.utils.PreferencesUtility;
+import com.naman14.timber.utils.PrefsUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
@@ -30,6 +30,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import io.fabric.sdk.android.Fabric;
+import timber.log.Timber;
 
 public class TimberApp extends MultiDexApplication {
 
@@ -45,6 +46,8 @@ public class TimberApp extends MultiDexApplication {
         super.onCreate();
         mInstance = this;
 
+        initLogger();
+
         //disable crashlytics for debug builds
         Crashlytics crashlyticsKit = new Crashlytics.Builder()
                 .core(new CrashlyticsCore.Builder().disabled(true).build())
@@ -52,7 +55,7 @@ public class TimberApp extends MultiDexApplication {
         Fabric.with(this, crashlyticsKit);
 
         ImageLoaderConfiguration localImageLoaderConfiguration = new ImageLoaderConfiguration.Builder(this).imageDownloader(new BaseImageDownloader(this) {
-            PreferencesUtility prefs = PreferencesUtility.getInstance(TimberApp.this);
+            PrefsUtil prefs = PrefsUtil.getInstance(TimberApp.this);
 
             @Override
             protected InputStream getStreamFromNetwork(String imageUri, Object extra) throws IOException {
@@ -109,5 +112,8 @@ public class TimberApp extends MultiDexApplication {
 
     }
 
+    private void initLogger() {
+        if (BuildConfig.DEBUG) Timber.plant(new Timber.DebugTree());
+    }
 
 }

@@ -67,6 +67,13 @@
 
         <com.afollestad.appthemeengine.prefs.ATECheckBoxPreference
             android:defaultValue="true"
+            android:key="SHOW_LAST_ADDED_ON_START"
+            android:summary="@string/show_last_added_on_start"
+            android:title="@string/last_added"
+            app:ateKey_pref_checkBox="?ate_key" />
+
+        <com.afollestad.appthemeengine.prefs.ATECheckBoxPreference
+            android:defaultValue="true"
             android:key="gestures"
             android:summary="@string/switching_tracks_by_gestures"
             android:title="@string/gestures"

@@ -31,7 +31,7 @@ import com.naman14.timber.R;
 import com.naman14.timber.adapters.ArtistAdapter;
 import com.naman14.timber.dataloaders.ArtistLoader;
 import com.naman14.timber.models.Artist;
-import com.naman14.timber.utils.PreferencesUtility;
+import com.naman14.timber.utils.PrefsUtil;
 import com.naman14.timber.utils.SortOrder;
 import com.naman14.timber.widgets.BaseRecyclerView;
 import com.naman14.timber.widgets.DividerItemDecoration;
@@ -45,13 +45,13 @@ public class ArtistFragment extends Fragment {
     private BaseRecyclerView recyclerView;
     private GridLayoutManager layoutManager;
     private RecyclerView.ItemDecoration itemDecoration;
-    private PreferencesUtility mPreferences;
+    private PrefsUtil mPreferences;
     private boolean isGrid;
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPreferences = PreferencesUtility.getInstance(getActivity());
+        mPreferences = PrefsUtil.getInstance(getActivity());
         isGrid = mPreferences.isArtistsInGrid();
     }
 

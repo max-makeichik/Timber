@@ -21,7 +21,6 @@ import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
-import android.preference.SwitchPreference;
 import android.view.View;
 
 import com.afollestad.appthemeengine.ATE;
@@ -36,7 +35,7 @@ import com.naman14.timber.dialogs.LastFmLoginDialog;
 import com.naman14.timber.lastfmapi.LastFmClient;
 import com.naman14.timber.utils.Constants;
 import com.naman14.timber.utils.NavigationUtils;
-import com.naman14.timber.utils.PreferencesUtility;
+import com.naman14.timber.utils.PrefsUtil;
 
 public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
 
@@ -46,19 +45,13 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     private static final String LOCKSCREEN = "show_albumart_lockscreen";
     private static final String XPOSED = "toggle_xposed_trackselector";
 
-    private static final String KEY_ABOUT = "preference_about";
-    private static final String KEY_SOURCE = "preference_source";
-    private static final String KEY_THEME = "theme_preference";
-    private static final String TOGGLE_ANIMATIONS = "toggle_animations";
-    private static final String TOGGLE_SYSTEM_ANIMATIONS = "toggle_system_animations";
     private static final String KEY_START_PAGE = "start_page_preference";
     private boolean lastFMlogedin;
 
     private Preference nowPlayingSelector, lastFMlogin, lockscreen, xposed;
 
-    private SwitchPreference toggleAnimations;
-    private ListPreference themePreference, startPagePreference;
-    private PreferencesUtility mPreferences;
+    private ListPreference startPagePreference;
+    private PrefsUtil mPreferences;
     private String mAteKey;
 
     @Override
@@ -67,7 +60,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
 
         addPreferencesFromResource(R.xml.preferences);
 
-        mPreferences = PreferencesUtility.getInstance(getActivity());
+        mPreferences = PrefsUtil.getInstance(getActivity());
 
         lockscreen = findPreference(LOCKSCREEN);
         nowPlayingSelector = findPreference(NOW_PLAYING_SELECTOR);
@@ -102,28 +95,25 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
 //            }
 //        });
 
-        startPagePreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                switch ((String) newValue) {
-                    case "last_opened":
-                        mPreferences.setLastOpenedAsStartPagePreference(true);
-                        break;
-                    case "songs":
-                        mPreferences.setLastOpenedAsStartPagePreference(false);
-                        mPreferences.setStartPageIndex(0);
-                        break;
-                    case "albums":
-                        mPreferences.setLastOpenedAsStartPagePreference(false);
-                        mPreferences.setStartPageIndex(1);
-                        break;
-                    case "artists":
-                        mPreferences.setLastOpenedAsStartPagePreference(false);
-                        mPreferences.setStartPageIndex(2);
-                        break;
-                }
-                return true;
+        startPagePreference.setOnPreferenceChangeListener((preference, newValue) -> {
+            switch ((String) newValue) {
+                case "last_opened":
+                    mPreferences.setLastOpenedAsStartPagePreference(true);
+                    break;
+                case "songs":
+                    mPreferences.setLastOpenedAsStartPagePreference(false);
+                    mPreferences.setStartPageIndex(0);
+                    break;
+                case "albums":
+                    mPreferences.setLastOpenedAsStartPagePreference(false);
+                    mPreferences.setStartPageIndex(1);
+                    break;
+                case "artists":
+                    mPreferences.setLastOpenedAsStartPagePreference(false);
+                    mPreferences.setStartPageIndex(2);
+                    break;
             }
+            return true;
         });
 
         Intent restoreIntent = new Intent(getActivity(), DonateActivity.class);
@@ -133,46 +123,36 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         findPreference("support_development").setIntent(new Intent(getActivity(), DonateActivity.class));
         findPreference("restore_purchases").setIntent(restoreIntent);
 
-        lockscreen.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
+        lockscreen.setOnPreferenceChangeListener((preference, newValue) -> {
+            Bundle extras = new Bundle();
+            extras.putBoolean("lockscreen", (boolean) newValue);
+            mPreferences.updateService(extras);
+            return true;
+        });
+
+        xposed.setOnPreferenceChangeListener((preference, newValue) -> {
+            Bundle extras = new Bundle();
+            extras.putBoolean("xtrack", (boolean) newValue);
+            mPreferences.updateService(extras);
+            return true;
+        });
+
+        lastFMlogin.setOnPreferenceClickListener(preference -> {
+            if (lastFMlogedin) {
+                LastFmClient.getInstance(getActivity()).logout();
                 Bundle extras = new Bundle();
-                extras.putBoolean("lockscreen", (boolean) newValue);
+                extras.putString("lf_token", "logout");
+                extras.putString("lf_user", null);
                 mPreferences.updateService(extras);
-                return true;
+                updateLastFM();
+            } else {
+                LastFmLoginDialog lastFmLoginDialog = new LastFmLoginDialog();
+                lastFmLoginDialog.setTargetFragment(SettingsFragment.this, 0);
+                lastFmLoginDialog.show(getFragmentManager(), LastFmLoginDialog.FRAGMENT_NAME);
+
             }
+            return true;
         });
-
-        xposed.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                Bundle extras = new Bundle();
-                extras.putBoolean("xtrack", (boolean) newValue);
-                mPreferences.updateService(extras);
-                return true;
-            }
-        });
-
-        lastFMlogin.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                if (lastFMlogedin) {
-                    LastFmClient.getInstance(getActivity()).logout();
-                    Bundle extras = new Bundle();
-                    extras.putString("lf_token", "logout");
-                    extras.putString("lf_user", null);
-                    mPreferences.updateService(extras);
-                    updateLastFM();
-                } else {
-                    LastFmLoginDialog lastFmLoginDialog = new LastFmLoginDialog();
-                    lastFmLoginDialog.setTargetFragment(SettingsFragment.this, 0);
-                    lastFmLoginDialog.show(getFragmentManager(), LastFmLoginDialog.FRAGMENT_NAME);
-
-                }
-                return true;
-            }
-        });
-
     }
 
     @Override
@@ -187,70 +167,52 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
 
         ATEColorPreference primaryColorPref = (ATEColorPreference) findPreference("primary_color");
         primaryColorPref.setColor(Config.primaryColor(getActivity(), mAteKey), Color.BLACK);
-        primaryColorPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                new ColorChooserDialog.Builder((SettingsActivity) getActivity(), R.string.primary_color)
-                        .preselect(Config.primaryColor(getActivity(), mAteKey))
-                        .show();
-                return true;
-            }
+        primaryColorPref.setOnPreferenceClickListener(preference -> {
+            new ColorChooserDialog.Builder((SettingsActivity) getActivity(), R.string.primary_color)
+                    .preselect(Config.primaryColor(getActivity(), mAteKey))
+                    .show();
+            return true;
         });
 
         ATEColorPreference accentColorPref = (ATEColorPreference) findPreference("accent_color");
         accentColorPref.setColor(Config.accentColor(getActivity(), mAteKey), Color.BLACK);
-        accentColorPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                new ColorChooserDialog.Builder((SettingsActivity) getActivity(), R.string.accent_color)
-                        .preselect(Config.accentColor(getActivity(), mAteKey))
-                        .show();
-                return true;
-            }
+        accentColorPref.setOnPreferenceClickListener(preference -> {
+            new ColorChooserDialog.Builder((SettingsActivity) getActivity(), R.string.accent_color)
+                    .preselect(Config.accentColor(getActivity(), mAteKey))
+                    .show();
+            return true;
         });
 
-
-        findPreference("dark_theme").setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                // Marks both theme configs as changed so MainActivity restarts itself on return
-                Config.markChanged(getActivity(), "light_theme");
-                Config.markChanged(getActivity(), "dark_theme");
-                // The dark_theme preference value gets saved by Android in the default PreferenceManager.
-                // It's used in getATEKey() of both the Activities.
-                getActivity().recreate();
-                return true;
-            }
+        findPreference("dark_theme").setOnPreferenceChangeListener((preference, newValue) -> {
+            // Marks both theme configs as changed so MainActivity restarts itself on return
+            Config.markChanged(getActivity(), "light_theme");
+            Config.markChanged(getActivity(), "dark_theme");
+            // The dark_theme preference value gets saved by Android in the default PreferenceManager.
+            // It's used in getATEKey() of both the Activities.
+            getActivity().recreate();
+            return true;
         });
 
         final ATECheckBoxPreference statusBarPref = (ATECheckBoxPreference) findPreference("colored_status_bar");
         final ATECheckBoxPreference navBarPref = (ATECheckBoxPreference) findPreference("colored_nav_bar");
 
         statusBarPref.setChecked(Config.coloredStatusBar(getActivity(), mAteKey));
-        statusBarPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                ATE.config(getActivity(), mAteKey)
-                        .coloredStatusBar((Boolean) newValue)
-                        .apply(getActivity());
-                return true;
-            }
+        statusBarPref.setOnPreferenceChangeListener((preference, newValue) -> {
+            ATE.config(getActivity(), mAteKey)
+                    .coloredStatusBar((Boolean) newValue)
+                    .apply(getActivity());
+            return true;
         });
 
-
         navBarPref.setChecked(Config.coloredNavigationBar(getActivity(), mAteKey));
-        navBarPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                ATE.config(getActivity(), mAteKey)
-                        .coloredNavigationBar((Boolean) newValue)
-                        .apply(getActivity());
-                return true;
-            }
+        navBarPref.setOnPreferenceChangeListener((preference, newValue) -> {
+            ATE.config(getActivity(), mAteKey)
+                    .coloredNavigationBar((Boolean) newValue)
+                    .apply(getActivity());
+            return true;
         });
 
     }
-
 
     public void updateLastFM() {
         String username = LastFmClient.getInstance(getActivity()).getUsername();

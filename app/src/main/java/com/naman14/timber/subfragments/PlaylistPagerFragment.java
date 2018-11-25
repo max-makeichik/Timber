@@ -37,7 +37,7 @@ import com.naman14.timber.models.Playlist;
 import com.naman14.timber.models.Song;
 import com.naman14.timber.utils.Constants;
 import com.naman14.timber.utils.NavigationUtils;
-import com.naman14.timber.utils.PreferencesUtility;
+import com.naman14.timber.utils.PrefsUtil;
 import com.naman14.timber.utils.TimberUtils;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -72,7 +72,7 @@ public class PlaylistPagerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        showAuto = PreferencesUtility.getInstance(getActivity()).showAutoPlaylist();
+        showAuto = PrefsUtil.getInstance(getActivity()).showAutoPlaylist();
         View rootView = inflater.inflate(R.layout.fragment_playlist_pager, container, false);
 
         final List<Playlist> playlists = PlaylistLoader.getPlaylists(getActivity(), showAuto);

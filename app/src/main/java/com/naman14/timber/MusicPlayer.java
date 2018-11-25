@@ -642,8 +642,7 @@ public class MusicPlayer {
                 return mService.duration();
             } catch (final RemoteException ignored) {
             } catch (final IllegalStateException ignored) {
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
             }
         }
         return 0;

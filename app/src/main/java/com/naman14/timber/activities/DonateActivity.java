@@ -16,7 +16,7 @@ import com.anjlab.android.iab.v3.BillingProcessor;
 import com.anjlab.android.iab.v3.SkuDetails;
 import com.anjlab.android.iab.v3.TransactionDetails;
 import com.naman14.timber.R;
-import com.naman14.timber.utils.PreferencesUtility;
+import com.naman14.timber.utils.PrefsUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -129,7 +129,7 @@ public class DonateActivity extends BaseThemedActivity implements BillingProcess
             protected void onPostExecute(Boolean b) {
                 super.onPostExecute(b);
                 if (b) {
-                    PreferencesUtility.getInstance(DonateActivity.this).setFullUnlocked(true);
+                    PrefsUtil.getInstance(DonateActivity.this).setFullUnlocked(true);
                     status.setText("Thanks for your support!");
                     if (action != null && action.equals("restore")) {
                         status.setText("Your purchases has been restored. Thanks for your support");

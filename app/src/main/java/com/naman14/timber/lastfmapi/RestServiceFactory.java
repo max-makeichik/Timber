@@ -16,7 +16,7 @@ package com.naman14.timber.lastfmapi;
 
 import android.content.Context;
 
-import com.naman14.timber.utils.PreferencesUtility;
+import com.naman14.timber.utils.PrefsUtil;
 import com.squareup.okhttp.Cache;
 import com.squareup.okhttp.OkHttpClient;
 
@@ -38,7 +38,7 @@ public class RestServiceFactory {
         okHttpClient.setConnectTimeout(40, TimeUnit.SECONDS);
 
         RequestInterceptor interceptor = new RequestInterceptor() {
-            PreferencesUtility prefs = PreferencesUtility.getInstance(context);
+            PrefsUtil prefs = PrefsUtil.getInstance(context);
 
             @Override
             public void intercept(RequestFacade request) {

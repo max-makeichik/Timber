@@ -31,7 +31,7 @@ import com.naman14.timber.lastfmapi.models.ScrobbleInfo;
 import com.naman14.timber.lastfmapi.models.ScrobbleQuery;
 import com.naman14.timber.lastfmapi.models.UserLoginInfo;
 import com.naman14.timber.lastfmapi.models.UserLoginQuery;
-import com.naman14.timber.utils.PreferencesUtility;
+import com.naman14.timber.utils.PrefsUtil;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
@@ -139,7 +139,7 @@ public class LastFmClient {
                 Bundle extras = new Bundle();
                 extras.putString("lf_token", userLoginInfo.mSession.mToken);
                 extras.putString("lf_user", userLoginInfo.mSession.mUsername);
-                PreferencesUtility.getInstance(context).updateService(extras);
+                PrefsUtil.getInstance(context).updateService(extras);
                 mUserSession = userLoginInfo.mSession;
                 mUserSession.update(context);
                 listener.userSuccess();

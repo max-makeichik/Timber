@@ -34,7 +34,7 @@ import com.naman14.timber.R;
 import com.naman14.timber.activities.DonateActivity;
 import com.naman14.timber.utils.Constants;
 import com.naman14.timber.utils.NavigationUtils;
-import com.naman14.timber.utils.PreferencesUtility;
+import com.naman14.timber.utils.PrefsUtil;
 
 public class SubStyleSelectorFragment extends Fragment {
 
@@ -111,7 +111,7 @@ public class SubStyleSelectorFragment extends Fragment {
     }
 
     private boolean isUnlocked() {
-        return getActivity() != null && PreferencesUtility.getInstance(getActivity()).fullUnlocked();
+        return getActivity() != null && PrefsUtil.getInstance(getActivity()).fullUnlocked();
     }
 
     @Override
@@ -175,7 +175,7 @@ public class SubStyleSelectorFragment extends Fragment {
             editor.putString(Constants.NOWPLAYING_FRAGMENT_ID, getStyleForPageNumber());
             editor.apply();
             if (getActivity() != null)
-                PreferencesUtility.getInstance(getActivity()).setNowPlayingThemeChanged(true);
+                PrefsUtil.getInstance(getActivity()).setNowPlayingThemeChanged(true);
             setCurrentStyle();
             ((StyleSelectorFragment) getParentFragment()).updateCurrentStyle();
         }

@@ -135,7 +135,7 @@ public class NavigationUtils {
         intent.putExtra(Constants.PLAYLIST_NAME, playlistName);
         intent.putExtra(Constants.ACTIVITY_TRANSITION, transitionViews != null);
 
-        if (transitionViews != null && TimberUtils.isLollipop()) {
+        if (transitionViews != null && TimberUtils.isLollipopAndNewer()) {
             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(context, transitionViews.get(0), transitionViews.get(1), transitionViews.get(2));
             context.startActivityForResult(intent, Constants.ACTION_DELETE_PLAYLIST, options.toBundle());
         } else {

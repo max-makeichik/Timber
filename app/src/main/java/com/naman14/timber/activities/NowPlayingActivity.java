@@ -16,7 +16,7 @@ import com.afollestad.appthemeengine.customizers.ATEToolbarCustomizer;
 import com.naman14.timber.R;
 import com.naman14.timber.utils.Constants;
 import com.naman14.timber.utils.NavigationUtils;
-import com.naman14.timber.utils.PreferencesUtility;
+import com.naman14.timber.utils.PrefsUtil;
 
 /**
  * Created by naman on 01/01/16.
@@ -67,8 +67,8 @@ public class NowPlayingActivity extends BaseActivity implements ATEActivityTheme
     @Override
     public void onResume() {
         super.onResume();
-        if (PreferencesUtility.getInstance(this).didNowplayingThemeChanged()) {
-            PreferencesUtility.getInstance(this).setNowPlayingThemeChanged(false);
+        if (PrefsUtil.getInstance(this).didNowplayingThemeChanged()) {
+            PrefsUtil.getInstance(this).setNowPlayingThemeChanged(false);
             recreate();
         }
     }

@@ -61,7 +61,7 @@ public class ArtistAlbumAdapter extends RecyclerView.Adapter<ArtistAlbumAdapter.
 
         ImageUtils.loadAlbumArtIntoView(localItem.id, itemHolder.albumArt);
 
-        if (TimberUtils.isLollipop())
+        if (TimberUtils.isLollipopAndNewer())
             itemHolder.albumArt.setTransitionName("transition_album_art" + i);
 
     }

@@ -33,7 +33,7 @@ import com.naman14.timber.R;
 import com.naman14.timber.fragments.SettingsFragment;
 import com.naman14.timber.subfragments.StyleSelectorFragment;
 import com.naman14.timber.utils.Constants;
-import com.naman14.timber.utils.PreferencesUtility;
+import com.naman14.timber.utils.PrefsUtil;
 
 public class SettingsActivity extends BaseThemedActivity implements ColorChooserDialog.ColorCallback, ATEActivityThemeCustomizer {
 
@@ -42,9 +42,9 @@ public class SettingsActivity extends BaseThemedActivity implements ColorChooser
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
-        if (PreferencesUtility.getInstance(this).getTheme().equals("dark"))
+        if (PrefsUtil.getInstance(this).getTheme().equals("dark"))
             setTheme(R.style.AppThemeNormalDark);
-        else if (PreferencesUtility.getInstance(this).getTheme().equals("black"))
+        else if (PrefsUtil.getInstance(this).getTheme().equals("black"))
             setTheme(R.style.AppThemeNormalBlack);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
