@@ -50,9 +50,9 @@ public class TimberApp extends MultiDexApplication {
 
         //disable crashlytics for debug builds
         Crashlytics crashlyticsKit = new Crashlytics.Builder()
-                .core(new CrashlyticsCore.Builder().disabled(true).build())
+                .core(new CrashlyticsCore.Builder().build())
                 .build();
-        Fabric.with(this, crashlyticsKit);
+        Fabric.with(this, crashlyticsKit, new Crashlytics());
 
         ImageLoaderConfiguration localImageLoaderConfiguration = new ImageLoaderConfiguration.Builder(this).imageDownloader(new BaseImageDownloader(this) {
             PrefsUtil prefs = PrefsUtil.getInstance(TimberApp.this);
