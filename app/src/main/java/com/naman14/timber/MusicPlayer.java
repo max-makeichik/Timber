@@ -624,7 +624,7 @@ public class MusicPlayer {
         }
     }
 
-    public static final long position() {
+    public static long position() {
         if (mService != null) {
             try {
                 return mService.position();

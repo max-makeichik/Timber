@@ -2702,6 +2702,9 @@ public class MusicService extends Service {
 
         @Override
         public long position() throws RemoteException {
+            if (mService.get() == null) {
+                return 0L;
+            }
             return mService.get().position();
         }
 

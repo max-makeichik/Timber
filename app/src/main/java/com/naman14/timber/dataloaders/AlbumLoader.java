@@ -68,10 +68,11 @@ public class AlbumLoader {
     }
 
 
-    public static Cursor makeAlbumCursor(Context context, String selection, String[] paramArrayOfString) {
+    private static Cursor makeAlbumCursor(Context context, String selection, String[] paramArrayOfString) {
         final String albumSortOrder = PrefsUtil.getInstance(context).getAlbumSortOrder();
-        Cursor cursor = context.getContentResolver().query(MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI, new String[]{"_id", "album", "artist", "artist_id", "numsongs", "minyear"}, selection, paramArrayOfString, albumSortOrder);
 
-        return cursor;
+        return context.getContentResolver().query(MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI,
+                new String[]{"_id", "album", "artist", "artist_id", "numsongs", "minyear"},
+                selection, paramArrayOfString, albumSortOrder);
     }
 }

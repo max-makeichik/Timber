@@ -194,8 +194,9 @@ public class AlbumFragment extends Fragment {
 
         @Override
         protected String doInBackground(String... params) {
-            if (getActivity() != null)
+            if (getActivity() != null && !getActivity().isFinishing()) {
                 mAdapter = new AlbumAdapter(getActivity(), AlbumLoader.getAllAlbums(getActivity()));
+            }
             return "Executed";
         }
 
